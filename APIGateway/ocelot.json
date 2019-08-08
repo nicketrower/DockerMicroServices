@@ -1,0 +1,112 @@
+{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/RegistrationAccount/{everything}",
+      "DownstreamScheme": "http",
+      "ServiceName": "registrationaccount",
+      //"UseServiceDiscovery": true,
+      //"LoadBalancerOptions": {
+      //  "Type": "LeastConnection"
+      //},
+      //"DownstreamHostAndPorts": [
+      //  {
+      //    "Host": "registrationaccount",
+      //    "Port": 80
+      //  }
+      //],
+      "UpstreamPathTemplate": "/account/{everything}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "SwaggerKey": "Registration"
+    },
+    {
+      "DownstreamPathTemplate": "/RegistrationData/{everything}",
+      "DownstreamScheme": "http",
+      "ServiceName": "registrationdata",
+      //"UseServiceDiscovery": true,
+      //"LoadBalancerOptions": {
+      //  "Type": "LeastConnection"
+      //},
+      //"DownstreamHostAndPorts": [
+      //  {
+      //    "Host": "registrationdata",
+      //    "Port": 80
+      //  }
+      //],
+      "UpstreamPathTemplate": "/data/{everything}",
+      "UpstreamHttpMethod": [ "GET", "PUT", "POST", "DELETE" ],
+      "SwaggerKey": "Data"
+    },
+    {
+      "DownstreamPathTemplate": "/api/Values/{everything}",
+      "DownstreamScheme": "http",
+      "ServiceName": "wishlist",
+      //"UseServiceDiscovery": true,
+      //"LoadBalancerOptions": {
+      //  "Type": "LeastConnection"
+      //},
+      //"DownstreamHostAndPorts": [
+      //  {
+      //    "Host": "wishlist",
+      //    "Port": 80
+      //  }
+      //],
+      "UpstreamPathTemplate": "/wishlist/{everything}",
+      "UpstreamHttpMethod": [ "GET", "PUT", "POST", "DELETE" ],
+      "SwaggerKey": "Wishlist"
+    }
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "Registration",
+      "Config": [
+        {
+          "Name": "Registration Account API",
+          "Version": "v1",
+          "Url": "http://registrationaccount/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "Data",
+      "Config": [
+        {
+          "Name": "Registration Data API",
+          "Version": "v1",
+          "Url": "http://registrationdata/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "Wishlist",
+      "Config": [
+        {
+          "Name": "Wish List API",
+          "Version": "v1",
+          "Url": "http://wishlist/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "AdministrationPath": "/administration",
+    "ServiceDiscoveryProvider": {
+      "Host": "consul",
+      "Port": 8500,
+      "Type": "Consul"
+    },
+    "RateLimitOptions": {
+      "ClientWhiteList": [],
+      "EnableRateLimiting": true,
+      "Period": "1s",
+      "PeriodTimespace": 1,
+      "Limit": 1,
+      "QuotaExceededMessage": "Limit has exceeded limit",
+      "HttpStatusCode": 500
+    },
+    "QoSOptions": {
+      "ExceptionsAllowedBeforeBreaking": 3,
+      "DurationOfBreak": 1000,
+      "TimeoutValue": 5000
+    }
+  }
+}

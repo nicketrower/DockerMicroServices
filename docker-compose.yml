@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  friends.api:
+    image: ${DOCKER_REGISTRY-}friendsapi
+    build:
+      context: .
+      dockerfile: Friends.API/Dockerfile
