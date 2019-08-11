@@ -41,9 +41,9 @@ namespace Account.API.Controllers
 
 
         [HttpDelete]
-        public AccountInfo Delete(int id)
+        public bool Delete(int id)
         {
-            return _userService.DisableAccount(id);
+            return true;
         }
     }
 }

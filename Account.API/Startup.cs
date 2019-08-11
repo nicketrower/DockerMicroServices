@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Account.API.Models;
 using Account.API.Repository;
 using Consul.Register;
 using Microsoft.AspNetCore.Builder;
@@ -30,6 +31,12 @@ namespace Account.API
             ConfigureConsul(services);
 
             services.AddScoped<IAccountService, AccountService>();
+
+            services.Configure<GabDatabaseSettings>(
+                Configuration.GetSection(nameof(GabDatabaseSettings)));
+
+            services.AddSingleton<IGabDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<GabDatabaseSettings>>().Value);
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>

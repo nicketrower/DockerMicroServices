@@ -10,7 +10,7 @@ namespace Account.API.Repository
     {
         AccountInfo GetAccountInfo(int id);
         AccountInfo UpdateAccountInfo(AccountInfo account);
-        AccountInfo DisableAccount(int id);
+        bool DisableAccount(int id);
         AccountInfo AddAccount(AccountInfo account);
     }
 }

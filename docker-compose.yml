@@ -69,8 +69,8 @@ services:
     container_name: gabmongodb
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: Pass@word!
-      MONGO_INITDB_DATABASE: gabmusic
+      - MONGO_INITDB_ROOT_USERNAME=gainabrain
+      - MONGO_INITDB_ROOT_PASSWORD=Pass@word
+      - MONGO_INITDB_DATABASE=gabmusic
     ports:
       - "27017:27017"
