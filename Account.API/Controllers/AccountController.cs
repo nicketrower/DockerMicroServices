@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Account.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("account/v1")]
     [ApiController]
     public class AccountController : ControllerBase
     {

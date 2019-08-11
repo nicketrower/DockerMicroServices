@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Friends.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("/friends/v1")]
     [ApiController]
     public class FriendsController : ControllerBase
     {
@@ -21,7 +21,7 @@ namespace Friends.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public FriendList Get(int id)
+        public IEnumerable<FriendList> Get(int id)
         {
             return _friendService.GetFriends(id);
         }

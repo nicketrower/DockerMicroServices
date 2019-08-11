@@ -1,8 +1,76 @@
 version: '3.4'
 
 services:
+  apigateway:
+    image: gabapigateway
+    build:
+      context: .
+      dockerfile: APIGateway/Dockerfile
+    container_name: gabapigateway
+    ports:
+      - "80:80"
+    depends_on:
+      - friends.api
+      - music.api
+      - account.api
+      - consul
+
   friends.api:
-    image: ${DOCKER_REGISTRY-}friendsapi
+    image: friends.api
+    ports:
+      - "80"
+    environment: 
+      - ServiceConfig__serviceDiscoveryAddress=http://consul:8500
+      - ServiceConfig__serviceAddress=http://friends.api:80
+      - ServiceConfig__serviceName=friends.api
+      - ServiceConfig__serviceId=friends.api-v1
     build:
       context: .
       dockerfile: Friends.API/Dockerfile
+    container_name: friends.api
+
+  music.api:
+    image: music.api
+    ports:
+      - "80"
+    environment: 
+      - ServiceConfig__serviceDiscoveryAddress=http://consul:8500
+      - ServiceConfig__serviceAddress=http://music.api:80
+      - ServiceConfig__serviceName=music.api
+      - ServiceConfig__serviceId=music.api-v1
+    build:
+      context: .
+      dockerfile: MusicLibrary.API/Dockerfile
+    container_name: music.api
+
+  account.api:
+    image: account.api
+    ports:
+      - "80"
+    environment: 
+      - ServiceConfig__serviceDiscoveryAddress=http://consul:8500
+      - ServiceConfig__serviceAddress=http://account.api:80
+      - ServiceConfig__serviceName=account.api
+      - ServiceConfig__serviceId=account.api-v1
+    build:
+      context: .
+      dockerfile: Account.API/Dockerfile
+    container_name: account.api
+
+  consul:
+    image: consul:latest
+    command: consul agent -dev -log-level=warn -ui -client=0.0.0.0
+    ports:
+      - "8500:8500"
+    container_name: consul
+
+  gabmongodb:
+    image: mongo:latest
+    container_name: gabmongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: Pass@word!
+      MONGO_INITDB_DATABASE: gabmusic
+    ports:
+      - "27017:27017"

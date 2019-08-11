@@ -7,7 +7,7 @@ namespace Friends.API.Models
 {
     public class FriendList
     {
-        public string FriendId { get; set; }
+        public int FriendId { get; set; }
         public int FriendMusicId { get; set; }
     }
 }

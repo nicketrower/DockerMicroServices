@@ -10,17 +10,22 @@ namespace Friends.API.Repository
     {
         public FriendList AddFriend(FriendList friendInfo)
         {
-            throw new NotImplementedException();
+            return friendInfo;
         }
 
-        public FriendList GetFriends(int id)
+        public List<FriendList> GetFriends(int id)
         {
-            throw new NotImplementedException();
+            List<FriendList> friendList = new List<FriendList>();
+            friendList.Add(new FriendList { FriendId = 1, FriendMusicId = 23 });
+            friendList.Add(new FriendList { FriendId = 2, FriendMusicId = 24 });
+            friendList.Add(new FriendList { FriendId = 3, FriendMusicId = 25 });
+
+            return friendList;
         }
 
         public FriendList RemoveFriend(int id)
         {
-            throw new NotImplementedException();
+            return new FriendList { FriendId = 3, FriendMusicId = 23 };
         }
     }
 }

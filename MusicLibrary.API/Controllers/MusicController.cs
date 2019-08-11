@@ -9,7 +9,7 @@ using MusicLibrary.API.Repository;
 
 namespace MusicLibrary.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("/music/v1")]
     [ApiController]
     public class MusicController : ControllerBase
     {

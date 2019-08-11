@@ -1,88 +1,58 @@
 {
   "ReRoutes": [
     {
-      "DownstreamPathTemplate": "/RegistrationAccount/{everything}",
+      "DownstreamPathTemplate": "/account/v1/{everything}",
       "DownstreamScheme": "http",
-      "ServiceName": "registrationaccount",
-      //"UseServiceDiscovery": true,
-      //"LoadBalancerOptions": {
-      //  "Type": "LeastConnection"
-      //},
-      //"DownstreamHostAndPorts": [
-      //  {
-      //    "Host": "registrationaccount",
-      //    "Port": 80
-      //  }
-      //],
+      "ServiceName": "account.api",
       "UpstreamPathTemplate": "/account/{everything}",
-      "UpstreamHttpMethod": [ "Get" ],
-      "SwaggerKey": "Registration"
+      "UpstreamHttpMethod": [ "GET", "PUT", "POST", "DELETE" ],
+      "SwaggerKey": "account"
     },
     {
-      "DownstreamPathTemplate": "/RegistrationData/{everything}",
+      "DownstreamPathTemplate": "/friends/v1/{everything}",
       "DownstreamScheme": "http",
-      "ServiceName": "registrationdata",
-      //"UseServiceDiscovery": true,
-      //"LoadBalancerOptions": {
-      //  "Type": "LeastConnection"
-      //},
-      //"DownstreamHostAndPorts": [
-      //  {
-      //    "Host": "registrationdata",
-      //    "Port": 80
-      //  }
-      //],
-      "UpstreamPathTemplate": "/data/{everything}",
+      "ServiceName": "friends.api",
+      "UpstreamPathTemplate": "/friends/{everything}",
       "UpstreamHttpMethod": [ "GET", "PUT", "POST", "DELETE" ],
-      "SwaggerKey": "Data"
+      "SwaggerKey": "friends"
     },
     {
-      "DownstreamPathTemplate": "/api/Values/{everything}",
+      "DownstreamPathTemplate": "/music/v1/{everything}",
       "DownstreamScheme": "http",
-      "ServiceName": "wishlist",
-      //"UseServiceDiscovery": true,
-      //"LoadBalancerOptions": {
-      //  "Type": "LeastConnection"
-      //},
-      //"DownstreamHostAndPorts": [
-      //  {
-      //    "Host": "wishlist",
-      //    "Port": 80
-      //  }
-      //],
-      "UpstreamPathTemplate": "/wishlist/{everything}",
+      "ServiceName": "music.api",
+      "UpstreamPathTemplate": "/music/{everything}",
       "UpstreamHttpMethod": [ "GET", "PUT", "POST", "DELETE" ],
-      "SwaggerKey": "Wishlist"
+      "SwaggerKey": "music"
     }
   ],
   "SwaggerEndPoints": [
     {
-      "Key": "Registration",
+      "Key": "account",
       "Config": [
         {
-          "Name": "Registration Account API",
+          "Name": "Account.API",
           "Version": "v1",
-          "Url": "http://registrationaccount/swagger/v1/swagger.json"
+          "Url": "http://account.api/swagger/v1/swagger.json"
         }
       ]
     },
     {
-      "Key": "Data",
+      "Key": "music",
       "Config": [
         {
-          "Name": "Registration Data API",
+          "Name": "Music.API",
           "Version": "v1",
-          "Url": "http://registrationdata/swagger/v1/swagger.json"
+          "Url": "http://music.api/swagger/v1/swagger.json"
         }
       ]
     },
     {
-      "Key": "Wishlist",
+      "Key": "friends",
       "Config": [
         {
-          "Name": "Wish List API",
+          "Name": "Friends.API",
           "Version": "v1",
-          "Url": "http://wishlist/swagger/v1/swagger.json"
+          "Url": "http://friends.api/swagger/v1/swagger.json"
         }
       ]
     }
