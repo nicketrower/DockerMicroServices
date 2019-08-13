@@ -14,9 +14,12 @@ services:
       - music.api
       - account.api
       - consul
+      - gabmongodb
 
   friends.api:
     image: friends.api
+    depends_on:
+      - gabmongodb
     ports:
       - "80"
     environment: 
@@ -31,6 +34,8 @@ services:
 
   music.api:
     image: music.api
+    depends_on:
+      - gabmongodb
     ports:
       - "80"
     environment: 
@@ -45,6 +50,8 @@ services:
 
   account.api:
     image: account.api
+    depends_on:
+      - gabmongodb
     ports:
       - "80"
     environment: 
@@ -68,9 +75,5 @@ services:
     image: mongo:latest
     container_name: gabmongodb
     restart: always
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=gainabrain
-      - MONGO_INITDB_ROOT_PASSWORD=Pass@word
-      - MONGO_INITDB_DATABASE=gabmusic
     ports:
       - "27017:27017"

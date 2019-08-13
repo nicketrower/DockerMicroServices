@@ -11,6 +11,6 @@ namespace MusicLibrary.API.Repository
         MusicLibraryList GetMusicLibrary(int id);
         MusicLibraryList UpdateMusicLibrary(MusicLibraryList account);
         MusicLibraryList DeleteMusicLibrarySegment(int id);
-        MusicLibraryList AddMusicLibrary(MusicLibraryList account);
+        MusicLibraryList AddMusicLibrary(MusicLibraryListDto musicLibList);
     }
 }

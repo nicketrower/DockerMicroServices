@@ -2,30 +2,42 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Friends.API.Models;
+using MongoDB.Common;
+using MongoDB.Driver;
 
 namespace Friends.API.Repository
 {
     public class FriendService : IFriendService
     {
-        public FriendList AddFriend(FriendList friendInfo)
+        private readonly IMongoCollection<FriendList> _friends;
+        private readonly IMapper _mapper;
+
+        public FriendService(IGabDatabaseSettings settings, IMapper mapper)
         {
-            return friendInfo;
+            var client = new MongoClient(settings.ConnectionString);
+            var database = client.GetDatabase(settings.DatabaseName);
+            _friends = database.GetCollection<FriendList>(settings.GabCollectionName);
+            _mapper = mapper;
         }
 
-        public List<FriendList> GetFriends(int id)
+        public FriendList AddFriend(FriendListDto friendInfo)
         {
-            List<FriendList> friendList = new List<FriendList>();
-            friendList.Add(new FriendList { FriendId = 1, FriendMusicId = 23 });
-            friendList.Add(new FriendList { FriendId = 2, FriendMusicId = 24 });
-            friendList.Add(new FriendList { FriendId = 3, FriendMusicId = 25 });
-
-            return friendList;
+            var friendDto = _mapper.Map<FriendList>(friendInfo);
+            _friends.InsertOne(friendDto);
+            return friendDto;
         }
 
-        public FriendList RemoveFriend(int id)
+        public List<FriendList> GetFriends(string id)
         {
-            return new FriendList { FriendId = 3, FriendMusicId = 23 };
+            return _friends.Find<FriendList>(a => a.AccountId == id).ToList();
+        }
+
+        public bool RemoveFriend(string id)
+        {
+            _friends.DeleteOne(f => f.FriendId == id);
+            return true;
         }
     }
 }

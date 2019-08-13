@@ -1,7 +1,10 @@
 ﻿using System;
-namespace Account.API.Models
+using System.Collections.Generic;
+using System.Text;
+
+namespace MongoDB.Common
 {
-    public class GabDatabaseSettings: IGabDatabaseSettings
+    public class GabDatabaseSettings : IGabDatabaseSettings
     {
         public string GabCollectionName { get; set; }
         public string ConnectionString { get; set; }
@@ -14,5 +17,4 @@ namespace Account.API.Models
         string ConnectionString { get; set; }
         string DatabaseName { get; set; }
     }
-    
 }

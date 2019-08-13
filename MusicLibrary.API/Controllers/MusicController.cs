@@ -28,7 +28,7 @@ namespace MusicLibrary.API.Controllers
 
 
         [HttpPost]
-        public MusicLibraryList Post([FromBody] MusicLibraryList music)
+        public MusicLibraryList Post([FromBody] MusicLibraryListDto music)
         {
             return _musicService.AddMusicLibrary(music);
         }

@@ -21,23 +21,42 @@ namespace Friends.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public IEnumerable<FriendList> Get(int id)
+        public IActionResult Get(string id)
         {
-            return _friendService.GetFriends(id);
+            try
+            {
+                return Ok(_friendService.GetFriends(id));
+            } catch(Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
         }
 
 
         [HttpPost]
-        public FriendList Post([FromBody] FriendList friend)
+        public IActionResult Post([FromBody] FriendListDto friend)
         {
-            return _friendService.AddFriend(friend);
+            try
+            {
+                return Ok(_friendService.AddFriend(friend));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
         }
 
 
-        [HttpDelete]
-        public FriendList Delete(int id)
+        [HttpDelete("id")]
+        public IActionResult Delete(string id)
         {
-            return _friendService.RemoveFriend(id);
+            try
+            {
+                return Ok(_friendService.RemoveFriend(id));
+            } catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
         }
     }
 }

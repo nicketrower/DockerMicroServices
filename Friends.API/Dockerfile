@@ -5,6 +5,8 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
 WORKDIR /src
 COPY ["Friends.API/Friends.API.csproj", "Friends.API/"]
+COPY ["./MongoDB.Common/MongoDB.Common.csproj", "MongoDB.Common/"]
+COPY ["./Consul.Register/Consul.Register.csproj", "Consul.Register/"]
 RUN dotnet restore "Friends.API/Friends.API.csproj"
 COPY . .
 WORKDIR "/src/Friends.API"

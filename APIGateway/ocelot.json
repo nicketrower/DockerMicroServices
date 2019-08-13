@@ -1,33 +1,57 @@
 {
   "ReRoutes": [
     {
+      "DownstreamPathTemplate": "/account/v1",
+      "DownstreamScheme": "http",
+      "ServiceName": "account.api",
+      "UpstreamPathTemplate": "/account",
+      "UpstreamHttpMethod": [ "POST" ],
+      "SwaggerKey": "accountpost"
+    },
+    {
       "DownstreamPathTemplate": "/account/v1/{everything}",
       "DownstreamScheme": "http",
       "ServiceName": "account.api",
       "UpstreamPathTemplate": "/account/{everything}",
-      "UpstreamHttpMethod": [ "GET", "PUT", "POST", "DELETE" ],
-      "SwaggerKey": "account"
+      "UpstreamHttpMethod": [ "GET", "PUT" ],
+      "SwaggerKey": "accountget"
     },
     {
       "DownstreamPathTemplate": "/friends/v1/{everything}",
       "DownstreamScheme": "http",
       "ServiceName": "friends.api",
       "UpstreamPathTemplate": "/friends/{everything}",
-      "UpstreamHttpMethod": [ "GET", "PUT", "POST", "DELETE" ],
-      "SwaggerKey": "friends"
+      "UpstreamHttpMethod": [ "GET", "DELETE" ],
+      "SwaggerKey": "friendsget"
+    },
+    {
+      "DownstreamPathTemplate": "/friends/v1",
+      "DownstreamScheme": "http",
+      "ServiceName": "friends.api",
+      "UpstreamPathTemplate": "/friends",
+      "UpstreamHttpMethod": [ "POST" ],
+      "SwaggerKey": "friendspost"
     },
     {
       "DownstreamPathTemplate": "/music/v1/{everything}",
       "DownstreamScheme": "http",
       "ServiceName": "music.api",
       "UpstreamPathTemplate": "/music/{everything}",
-      "UpstreamHttpMethod": [ "GET", "PUT", "POST", "DELETE" ],
-      "SwaggerKey": "music"
+      "UpstreamHttpMethod": [ "GET" ],
+      "SwaggerKey": "musicget"
+    },
+    {
+      "DownstreamPathTemplate": "/music/v1",
+      "DownstreamScheme": "http",
+      "ServiceName": "music.api",
+      "UpstreamPathTemplate": "/music",
+      "UpstreamHttpMethod": [ "DELETE", "POST", "PUT" ],
+      "SwaggerKey": "musicpost"
     }
   ],
   "SwaggerEndPoints": [
     {
-      "Key": "account",
+      "Key": "accountget",
       "Config": [
         {
           "Name": "Account.API",
@@ -37,7 +61,17 @@
       ]
     },
     {
-      "Key": "music",
+      "Key": "accountpost",
+      "Config": [
+        {
+          "Name": "Account.API",
+          "Version": "v1",
+          "Url": "http://account.api/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "musicget",
       "Config": [
         {
           "Name": "Music.API",
@@ -47,7 +81,27 @@
       ]
     },
     {
-      "Key": "friends",
+      "Key": "musicpost",
+      "Config": [
+        {
+          "Name": "Music.API",
+          "Version": "v1",
+          "Url": "http://music.api/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "friendsget",
+      "Config": [
+        {
+          "Name": "Friends.API",
+          "Version": "v1",
+          "Url": "http://friends.api/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "friendspost",
       "Config": [
         {
           "Name": "Friends.API",

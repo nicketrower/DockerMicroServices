@@ -4,12 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Account.API.Models;
 using Account.API.Repository;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Account.API.Controllers
 {
-    [Route("account/v1")]
+    [Route("/account/v1")]
     [ApiController]
     public class AccountController : ControllerBase
     {
@@ -21,29 +22,41 @@ namespace Account.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public AccountInfo Get(int id)
+        public IActionResult Get(string id)
         {
-            return _userService.GetAccountInfo(id);
+            try
+            {
+                return Ok(_userService.GetAccountInfo(id));
+            } catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
         }
 
        
         [HttpPost]
-        public AccountInfo Post([FromBody] AccountInfo account)
+        public IActionResult Post([FromBody] AccountInfoDto account)
         {
-            return _userService.AddAccount(account);
+         
+            try
+            {
+                return Ok(_userService.AddAccount(account));
+            } catch (Exception ex) {
+                return BadRequest(ex.ToString());
+            }
         }
 
-        [HttpPut]
-        public AccountInfo Put([FromBody] AccountInfo account)
+        [HttpPut("{id}")]
+        public IActionResult Put(string id, [FromBody] AccountInfoDto accountData)
         {
-            return _userService.UpdateAccountInfo(account);
+            try
+            {
+                return Ok(_userService.UpdateAccountInfo(id, accountData));
+            } catch(Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
         }
 
-
-        [HttpDelete]
-        public bool Delete(int id)
-        {
-            return true;
-        }
     }
 }

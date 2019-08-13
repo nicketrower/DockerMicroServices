@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App">
       <PrivateAssets Condition="'%(PackageReference.Version)' == ''">all</PrivateAssets>
       <Publish Condition="'%(PackageReference.Version)' == ''">true</Publish>
@@ -21,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Consul.Register\Consul.Register.csproj" />
+    <ProjectReference Include="..\MongoDB.Common\MongoDB.Common.csproj" />
   </ItemGroup>
 
 </Project>

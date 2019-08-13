@@ -8,9 +8,8 @@ namespace Account.API.Repository
 {
     public interface IAccountService
     {
-        AccountInfo GetAccountInfo(int id);
-        AccountInfo UpdateAccountInfo(AccountInfo account);
-        bool DisableAccount(int id);
-        AccountInfo AddAccount(AccountInfo account);
+        AccountInfo GetAccountInfo(string id);
+        AccountInfo UpdateAccountInfo(string id, AccountInfoDto accountData);
+        AccountInfo AddAccount(AccountInfoDto account);
     }
 }

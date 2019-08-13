@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Account.API.Models;
 using Account.API.Repository;
+using AutoMapper;
 using Consul.Register;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MongoDB.Common;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Account.API
@@ -38,13 +40,15 @@ namespace Account.API
             services.AddSingleton<IGabDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<GabDatabaseSettings>>().Value);
 
+            
+
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Account.API", Version = "v1" });
             });
 
-            
+            services.AddAutoMapper(typeof(Startup));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

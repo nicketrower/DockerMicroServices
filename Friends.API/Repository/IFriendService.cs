@@ -8,8 +8,8 @@ namespace Friends.API.Repository
 {
     public interface IFriendService
     {
-        List<FriendList> GetFriends(int id);
-        FriendList RemoveFriend(int id);
-        FriendList AddFriend(FriendList friendInfo);
+        List<FriendList> GetFriends(string id);
+        bool RemoveFriend(string id);
+        FriendList AddFriend(FriendListDto friendInfo);
     }
 }

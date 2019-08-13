@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Consul.Register;
 using Friends.API.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MongoDB.Common;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Friends.API
@@ -31,12 +33,19 @@ namespace Friends.API
 
             services.AddScoped<IFriendService, FriendService>();
 
+            services.Configure<GabDatabaseSettings>(
+               Configuration.GetSection(nameof(GabDatabaseSettings)));
+
+            services.AddSingleton<IGabDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<GabDatabaseSettings>>().Value);
+
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Friends.API", Version = "v1" });
             });
 
+            services.AddAutoMapper(typeof(Startup));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
