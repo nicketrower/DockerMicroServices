@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Friends.API.Controllers
 {
+    [Produces("application/json")]
     [Route("/friends/v1")]
     [ApiController]
     public class FriendsController : ControllerBase
@@ -21,11 +22,11 @@ namespace Friends.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(string id)
+        public async Task<IActionResult> Get(string id)
         {
             try
             {
-                return Ok(_friendService.GetFriends(id));
+                return Ok(await _friendService.GetFriends(id));
             } catch(Exception ex)
             {
                 return BadRequest(ex.ToString());
@@ -34,11 +35,11 @@ namespace Friends.API.Controllers
 
 
         [HttpPost]
-        public IActionResult Post([FromBody] FriendListDto friend)
+        public async Task<IActionResult> Post([FromBody] FriendList friend)
         {
             try
             {
-                return Ok(_friendService.AddFriend(friend));
+                return Ok(await _friendService.AddFriend(friend));
             }
             catch (Exception ex)
             {

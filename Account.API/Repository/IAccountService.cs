@@ -8,8 +8,8 @@ namespace Account.API.Repository
 {
     public interface IAccountService
     {
-        AccountInfo GetAccountInfo(string id);
-        AccountInfo UpdateAccountInfo(string id, AccountInfoDto accountData);
-        AccountInfo AddAccount(AccountInfoDto account);
+        Task<AccountInfo> GetAccountInfo(string id);
+        Task<AccountInfo> UpdateAccountInfo(string id, AccountInfo accountData);
+        Task<AccountInfo> AddAccount(AccountInfo account);
     }
 }

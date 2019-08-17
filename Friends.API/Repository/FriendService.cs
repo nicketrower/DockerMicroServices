@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Friends.API.Models;
+using Microsoft.Azure.Cosmos;
 using MongoDB.Common;
 using MongoDB.Driver;
 
@@ -11,32 +12,34 @@ namespace Friends.API.Repository
 {
     public class FriendService : IFriendService
     {
-        private readonly IMongoCollection<FriendList> _friends;
-        private readonly IMapper _mapper;
+        private Container _container;
 
-        public FriendService(IGabDatabaseSettings settings, IMapper mapper)
+        public FriendService(CosmosClient dbClient, string databaseName, string containerName)
         {
-            var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
-            _friends = database.GetCollection<FriendList>(settings.GabCollectionName);
-            _mapper = mapper;
+            this._container = dbClient.GetContainer(databaseName, containerName);
         }
 
-        public FriendList AddFriend(FriendListDto friendInfo)
+        public async Task<FriendList> AddFriend(FriendList friendInfo)
         {
-            var friendDto = _mapper.Map<FriendList>(friendInfo);
-            _friends.InsertOne(friendDto);
-            return friendDto;
+            friendInfo.Id = Guid.NewGuid().ToString();
+            await this._container.CreateItemAsync<FriendList>(friendInfo, new PartitionKey(friendInfo.Id));
+            return friendInfo;
         }
 
-        public List<FriendList> GetFriends(string id)
+        public async Task<FriendList> GetFriends(string id)
         {
-            return _friends.Find<FriendList>(a => a.AccountId == id).ToList();
+            ItemResponse<FriendList> response = await this._container.ReadItemAsync<FriendList>(id, new PartitionKey(id));
+            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return null;
+            }
+
+            return response.Resource;
         }
 
         public bool RemoveFriend(string id)
         {
-            _friends.DeleteOne(f => f.FriendId == id);
+            //_friends.DeleteOne(f => f.FriendId == id);
             return true;
         }
     }

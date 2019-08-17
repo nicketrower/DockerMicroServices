@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.Azure.Cosmos;
 using MongoDB.Common;
 using MongoDB.Driver;
 using MusicLibrary.API.Models;
@@ -11,21 +12,17 @@ namespace MusicLibrary.API.Repository
 {
     public class MusicLibService : IMusicLibService
     {
-        private readonly IMongoCollection<MusicLibraryList> _music;
-        private readonly IMapper _mapper;
+        private Container _container;
 
-        public MusicLibService(IGabDatabaseSettings settings, IMapper mapper)
+        public MusicLibService(CosmosClient dbClient, string databaseName, string containerName)
         {
-            var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
-            _music = database.GetCollection<MusicLibraryList>(settings.GabCollectionName);
-            _mapper = mapper;
+            this._container = dbClient.GetContainer(databaseName, containerName);
         }
-        public MusicLibraryList AddMusicLibrary(MusicLibraryListDto musicLibList)
+        public async Task<MusicLibraryList> AddMusicLibrary(MusicLibraryList musicLibList)
         {
-            var musicDto = _mapper.Map<MusicLibraryList>(musicLibList);
-            _music.InsertOne(musicDto);
-            return musicDto;
+            musicLibList.Id = Guid.NewGuid().ToString();
+            await this._container.CreateItemAsync<MusicLibraryList>(musicLibList, new PartitionKey(musicLibList.Id));
+            return musicLibList;
         }
 
         public MusicLibraryList DeleteMusicLibrarySegment(int id)

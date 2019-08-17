@@ -5,21 +5,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json;
 
 namespace Account.API.Models
 {
     public class AccountInfo
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
+        [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
+        [JsonProperty(PropertyName = "firstname")]
         public string FirstName { get; set; }
+        [JsonProperty(PropertyName = "lastname")]
         public string LastName { get; set; }
-        [Required]
-        [BsonElement("Name")]
+        [JsonProperty(PropertyName = "emailaddress")]
         public string EmailAddress { get; set; }
+        [JsonProperty(PropertyName = "phonenumber")]
         public string PhoneNumber { get; set; }
-        public int AccountStatus { get; set; }
+        [JsonProperty(PropertyName = "isActive")]
+        public bool AccountStatus { get; set; }
     }
 
     public class AccountInfoDto
@@ -29,6 +32,6 @@ namespace Account.API.Models
         [Required]
         public string EmailAddress { get; set; }
         public string PhoneNumber { get; set; }
-        public int AccountStatus { get; set; }
+        public bool AccountStatus { get; set; }
     }
 }

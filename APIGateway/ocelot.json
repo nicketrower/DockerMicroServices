@@ -3,7 +3,13 @@
     {
       "DownstreamPathTemplate": "/account/v1",
       "DownstreamScheme": "http",
-      "ServiceName": "account.api",
+      //"ServiceName": "account.api",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account.api",
+          "Port": 80
+        }
+      ],
       "UpstreamPathTemplate": "/account",
       "UpstreamHttpMethod": [ "POST" ],
       "SwaggerKey": "accountpost"
@@ -11,7 +17,13 @@
     {
       "DownstreamPathTemplate": "/account/v1/{everything}",
       "DownstreamScheme": "http",
-      "ServiceName": "account.api",
+      //"ServiceName": "account.api",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account.api",
+          "Port": 80
+        }
+      ],
       "UpstreamPathTemplate": "/account/{everything}",
       "UpstreamHttpMethod": [ "GET", "PUT" ],
       "SwaggerKey": "accountget"
@@ -19,7 +31,13 @@
     {
       "DownstreamPathTemplate": "/friends/v1/{everything}",
       "DownstreamScheme": "http",
-      "ServiceName": "friends.api",
+      //"ServiceName": "friends.api",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "friends.api",
+          "Port": 80
+        }
+      ],
       "UpstreamPathTemplate": "/friends/{everything}",
       "UpstreamHttpMethod": [ "GET", "DELETE" ],
       "SwaggerKey": "friendsget"
@@ -27,7 +45,13 @@
     {
       "DownstreamPathTemplate": "/friends/v1",
       "DownstreamScheme": "http",
-      "ServiceName": "friends.api",
+      //"ServiceName": "friends.api",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "friends.api",
+          "Port": 80
+        }
+      ],
       "UpstreamPathTemplate": "/friends",
       "UpstreamHttpMethod": [ "POST" ],
       "SwaggerKey": "friendspost"
@@ -35,7 +59,13 @@
     {
       "DownstreamPathTemplate": "/music/v1/{everything}",
       "DownstreamScheme": "http",
-      "ServiceName": "music.api",
+      //"ServiceName": "music.api",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "music.api",
+          "Port": 80
+        }
+      ],
       "UpstreamPathTemplate": "/music/{everything}",
       "UpstreamHttpMethod": [ "GET" ],
       "SwaggerKey": "musicget"
@@ -43,7 +73,13 @@
     {
       "DownstreamPathTemplate": "/music/v1",
       "DownstreamScheme": "http",
-      "ServiceName": "music.api",
+      //"ServiceName": "music.api",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "music.api",
+          "Port": 80
+        }
+      ],
       "UpstreamPathTemplate": "/music",
       "UpstreamHttpMethod": [ "DELETE", "POST", "PUT" ],
       "SwaggerKey": "musicpost"
@@ -113,11 +149,11 @@
   ],
   "GlobalConfiguration": {
     "AdministrationPath": "/administration",
-    "ServiceDiscoveryProvider": {
-      "Host": "consul",
-      "Port": 8500,
-      "Type": "Consul"
-    },
+    //"ServiceDiscoveryProvider": {
+    //  "Host": "consul",
+    //  "Port": 8500,
+    //  "Type": "Consul"
+    //},
     "RateLimitOptions": {
       "ClientWhiteList": [],
       "EnableRateLimiting": true,

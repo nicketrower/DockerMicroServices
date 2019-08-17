@@ -8,6 +8,8 @@ using Friends.API.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.Cosmos;
+using Microsoft.Azure.Cosmos.Fluent;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -29,15 +31,17 @@ namespace Friends.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            ConfigureConsul(services);
+            //ConfigureConsul(services);
 
-            services.AddScoped<IFriendService, FriendService>();
+            //services.AddScoped<IFriendService, FriendService>();
 
-            services.Configure<GabDatabaseSettings>(
-               Configuration.GetSection(nameof(GabDatabaseSettings)));
+            //services.Configure<GabDatabaseSettings>(
+            // Configuration.GetSection(nameof(GabDatabaseSettings)));
 
-            services.AddSingleton<IGabDatabaseSettings>(sp =>
-                sp.GetRequiredService<IOptions<GabDatabaseSettings>>().Value);
+            services.AddSingleton<IFriendService>(InitializeCosmosClientInstanceAsync(Configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());
+
+            //services.AddSingleton<IGabDatabaseSettings>(sp =>
+            // sp.GetRequiredService<IOptions<GabDatabaseSettings>>().Value);
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
@@ -76,6 +80,23 @@ namespace Friends.API
             var serviceConfig = Configuration.GetServiceConfig();
 
             services.RegisterConsulServices(serviceConfig);
+        }
+
+        private static async Task<FriendService> InitializeCosmosClientInstanceAsync(IConfigurationSection configurationSection)
+        {
+            string databaseName = configurationSection.GetSection("DatabaseName").Value;
+            string containerName = configurationSection.GetSection("ContainerName").Value;
+            string account = configurationSection.GetSection("Account").Value;
+            string key = configurationSection.GetSection("Key").Value;
+            CosmosClientBuilder clientBuilder = new CosmosClientBuilder(account, key);
+            CosmosClient client = clientBuilder
+                                .WithConnectionModeDirect()
+                                .Build();
+            FriendService cosmosDbService = new FriendService(client, databaseName, containerName);
+            DatabaseResponse database = await client.CreateDatabaseIfNotExistsAsync(databaseName);
+            await database.Database.CreateContainerIfNotExistsAsync(containerName, "/id");
+
+            return cosmosDbService;
         }
     }
 }

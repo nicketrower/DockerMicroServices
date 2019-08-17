@@ -9,6 +9,7 @@ using MusicLibrary.API.Repository;
 
 namespace MusicLibrary.API.Controllers
 {
+    [Produces("application/json")]
     [Route("/music/v1")]
     [ApiController]
     public class MusicController : ControllerBase
@@ -28,9 +29,9 @@ namespace MusicLibrary.API.Controllers
 
 
         [HttpPost]
-        public MusicLibraryList Post([FromBody] MusicLibraryListDto music)
+        public async Task<MusicLibraryList> Post([FromBody] MusicLibraryList music)
         {
-            return _musicService.AddMusicLibrary(music);
+            return await _musicService.AddMusicLibrary(music);
         }
 
         [HttpPut]

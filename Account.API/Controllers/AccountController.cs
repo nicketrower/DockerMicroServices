@@ -22,11 +22,11 @@ namespace Account.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(string id)
+        public async Task<IActionResult> Get(string id)
         {
             try
             {
-                return Ok(_userService.GetAccountInfo(id));
+                return Ok(await _userService.GetAccountInfo(id));
             } catch (Exception ex)
             {
                 return BadRequest(ex.ToString());
@@ -35,23 +35,23 @@ namespace Account.API.Controllers
 
        
         [HttpPost]
-        public IActionResult Post([FromBody] AccountInfoDto account)
+        public async Task<IActionResult> Post([FromBody] AccountInfo account)
         {
          
             try
             {
-                return Ok(_userService.AddAccount(account));
+                return Ok(await _userService.AddAccount(account));
             } catch (Exception ex) {
                 return BadRequest(ex.ToString());
             }
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(string id, [FromBody] AccountInfoDto accountData)
+        public async Task<IActionResult> Put(string id, [FromBody] AccountInfo accountData)
         {
             try
             {
-                return Ok(_userService.UpdateAccountInfo(id, accountData));
+                return Ok(await _userService.UpdateAccountInfo(id, accountData));
             } catch(Exception ex)
             {
                 return BadRequest(ex.ToString());

@@ -32,8 +32,8 @@ namespace APIGateway
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services
                 .AddOcelot(Configuration)
-                .AddPolly()
-                .AddConsul();
+                .AddPolly();
+                //.AddConsul();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
