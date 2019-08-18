@@ -8,7 +8,8 @@ export class ProfileService {
 
   constructor(private http: HttpClient) { }
 
-  addfriend(account: Userinfo) {
+  addfriend() {
+    let user = 'Testing';
     return this.http.post('http://account.api/account', user);
   }
 

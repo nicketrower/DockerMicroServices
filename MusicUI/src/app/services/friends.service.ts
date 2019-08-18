@@ -8,11 +8,12 @@ export class FriendsService {
 
   constructor(private http: HttpClient) { }
 
-  addfriend(account: Userinfo) {
-    return this.http.post('http://account.api/account', user);
+  addfriend() {
+    let user = 'Testing';
+    return this.http.post('http://friends.api/account', user);
   }
 
   getfriends() {
-    return this.http.get('http://account.api/account');
+    return this.http.get('http://friends.api/account');
   }
 }

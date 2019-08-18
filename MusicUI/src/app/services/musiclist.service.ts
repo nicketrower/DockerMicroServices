@@ -8,7 +8,8 @@ export class MusiclistService {
 
   constructor(private http: HttpClient) { }
 
-  addfriend(account: Userinfo) {
+  addfriend() {
+    let user = 'test';
     return this.http.post('http://account.api/account', user);
   }
 

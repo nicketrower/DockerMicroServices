@@ -13,13 +13,13 @@ services:
       - friends.api
       - music.api
       - account.api
-      - consul
-      - gabmongodb
+      #- consul
+      #- gabmongodb
 
   friends.api:
     image: friends.api
-    depends_on:
-      - gabmongodb
+    #depends_on:
+    #  - gabmongodb
     ports:
       - "80"
     environment: 
@@ -34,8 +34,8 @@ services:
 
   music.api:
     image: music.api
-    depends_on:
-      - gabmongodb
+    #depends_on:
+    #  - gabmongodb
     ports:
       - "80"
     environment: 
@@ -50,8 +50,8 @@ services:
 
   account.api:
     image: account.api
-    depends_on:
-      - gabmongodb
+    #depends_on:
+    # - gabmongodb
     ports:
       - "80"
     environment: 
@@ -64,19 +64,19 @@ services:
       dockerfile: Account.API/Dockerfile
     container_name: account.api
 
-  consul:
-    image: consul:latest
-    command: consul agent -dev -log-level=warn -ui -client=0.0.0.0
-    ports:
-      - "8500:8500"
-    container_name: consul
+  #consul:
+   # image: consul:latest
+   # command: consul agent -dev -log-level=warn -ui -client=0.0.0.0
+   # ports:
+   #   - "8500:8500"
+   # container_name: consul
 
-  gabmongodb:
-    image: mongo:latest
-    container_name: gabmongodb
-    restart: always
-    ports:
-      - "27017:27017"
+  #gabmongodb:
+   # image: mongo:latest
+    #container_name: gabmongodb
+    #restart: always
+    #ports:
+    #  - "27017:27017"
 
   angular:
     container_name: angular
