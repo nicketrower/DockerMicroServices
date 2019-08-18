@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.Cosmos;
 using MusicLibrary.API.Models;
 using MusicLibrary.API.Repository;
 
@@ -15,8 +17,10 @@ namespace MusicLibrary.API.Controllers
     public class MusicController : ControllerBase
     {
         private readonly IMusicLibService _musicService;
+        private readonly IMapper _mapper;
 
-        public MusicController(IMusicLibService musicService)
+
+        public MusicController(IMusicLibService musicService, IMapper mapper)
         {
             _musicService = musicService;
         }
@@ -29,22 +33,22 @@ namespace MusicLibrary.API.Controllers
 
 
         [HttpPost]
-        public async Task<MusicLibraryList> Post([FromBody] MusicLibraryList music)
+        public async Task<ItemResponse<MusicLibraryList>> Post([FromBody] MusicLibraryListDto music)
         {
-            return await _musicService.AddMusicLibrary(music);
+            return await _musicService.AddMusicLibrary(_mapper.Map<MusicLibraryList>(music));
         }
 
-        [HttpPut]
-        public MusicLibraryList Put([FromBody] MusicLibraryList music)
+        [HttpPut("{id}")]
+        public async Task<ItemResponse<MusicLibraryList>> Put([FromBody] MusicLibraryList musicLibList, string id)
         {
-            return _musicService.UpdateMusicLibrary(music);
+            return await _musicService.UpdateMusicLibrary(musicLibList);
         }
 
 
         [HttpDelete]
-        public MusicLibraryList Delete(int id)
+        public async Task<ItemResponse<MusicLibraryList>> Delete(string id)
         {
-            return _musicService.DeleteMusicLibrarySegment(id);
+           return  await _musicService.DeleteMusicLibrarySegment(id);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Friends.API.Models;
 using Friends.API.Repository;
 using Microsoft.AspNetCore.Http;
@@ -15,10 +16,12 @@ namespace Friends.API.Controllers
     public class FriendsController : ControllerBase
     {
         private readonly IFriendService _friendService;
+        private readonly IMapper _mapper;
 
-        public FriendsController(IFriendService friendService)
+        public FriendsController(IFriendService friendService, IMapper mapper)
         {
             _friendService = friendService;
+            _mapper = mapper;
         }
 
         [HttpGet("{id}")]
@@ -35,11 +38,11 @@ namespace Friends.API.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] FriendList friend)
+        public async Task<IActionResult> Post([FromBody] FriendListDto friend)
         {
             try
             {
-                return Ok(await _friendService.AddFriend(friend));
+                return Ok(await _friendService.AddFriend(_mapper.Map<FriendList>(friend)));
             }
             catch (Exception ex)
             {

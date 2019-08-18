@@ -10,15 +10,18 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Account.API.Controllers
 {
+    [Produces("applicaiton/json")]
     [Route("/account/v1")]
     [ApiController]
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _userService;
+        private readonly IMapper _mapper;
 
-        public AccountController(IAccountService userService)
+        public AccountController(IAccountService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
         [HttpGet("{id}")]
@@ -35,12 +38,12 @@ namespace Account.API.Controllers
 
        
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] AccountInfo account)
+        public async Task<IActionResult> Post([FromBody] AccountInfoDto account)
         {
-         
+
             try
             {
-                return Ok(await _userService.AddAccount(account));
+                return Ok(await _userService.AddAccount(_mapper.Map<AccountInfo>(account)));
             } catch (Exception ex) {
                 return BadRequest(ex.ToString());
             }

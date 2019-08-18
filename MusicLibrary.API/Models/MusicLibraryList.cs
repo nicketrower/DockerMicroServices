@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +10,28 @@ namespace MusicLibrary.API.Models
 {
     public class MusicLibraryList
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
+        [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
 
+        [JsonProperty(PropertyName = "accountid")]
         public string AccountId { get; set; }
+
+        [JsonProperty(PropertyName = "artistname")]
         public string ArtistName { get; set; }
+
+        [JsonProperty(PropertyName = "album")]
         public string Album { get; set; }
+
+        [JsonProperty(PropertyName = "songs")]
         public List<SongInfo> Songs { get; set; }
+
+        [JsonProperty(PropertyName = "releasedate")]
         public DateTime ReleaseDate { get; set; }
+
+        [JsonProperty(PropertyName = "albumcover")]
         public string AlbumCover { get; set; }
+
+        [JsonProperty(PropertyName = "artistpicture")]
         public string ArtistPicture { get; set; }
     }
 

@@ -38,7 +38,7 @@ namespace Friends.API
             //services.Configure<GabDatabaseSettings>(
             // Configuration.GetSection(nameof(GabDatabaseSettings)));
 
-            services.AddSingleton<IFriendService>(InitializeCosmosClientInstanceAsync(Configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());
+            services.AddSingleton<IFriendService>(InitializeCosmosClientInstanceAsync(Configuration.GetSection("CosmosDb"), Configuration["Key"], Configuration["Account"]).GetAwaiter().GetResult());
 
             //services.AddSingleton<IGabDatabaseSettings>(sp =>
             // sp.GetRequiredService<IOptions<GabDatabaseSettings>>().Value);
@@ -75,19 +75,19 @@ namespace Friends.API
             app.UseMvc();
         }
 
-        private void ConfigureConsul(IServiceCollection services)
-        {
-            var serviceConfig = Configuration.GetServiceConfig();
+        //private void ConfigureConsul(IServiceCollection services)
+        //{
+        //    var serviceConfig = Configuration.GetServiceConfig();
 
-            services.RegisterConsulServices(serviceConfig);
-        }
+        //    services.RegisterConsulServices(serviceConfig);
+        //}
 
-        private static async Task<FriendService> InitializeCosmosClientInstanceAsync(IConfigurationSection configurationSection)
+        private static async Task<FriendService> InitializeCosmosClientInstanceAsync(IConfigurationSection configurationSection, string Key, string Account)
         {
             string databaseName = configurationSection.GetSection("DatabaseName").Value;
             string containerName = configurationSection.GetSection("ContainerName").Value;
-            string account = configurationSection.GetSection("Account").Value;
-            string key = configurationSection.GetSection("Key").Value;
+            string account = Account;
+            string key = Key;
             CosmosClientBuilder clientBuilder = new CosmosClientBuilder(account, key);
             CosmosClient client = clientBuilder
                                 .WithConnectionModeDirect()

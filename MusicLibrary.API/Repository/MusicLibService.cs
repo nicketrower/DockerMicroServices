@@ -18,16 +18,16 @@ namespace MusicLibrary.API.Repository
         {
             this._container = dbClient.GetContainer(databaseName, containerName);
         }
-        public async Task<MusicLibraryList> AddMusicLibrary(MusicLibraryList musicLibList)
+        public async Task<ItemResponse<MusicLibraryList>> AddMusicLibrary(MusicLibraryList musicLibList)
         {
             musicLibList.Id = Guid.NewGuid().ToString();
-            await this._container.CreateItemAsync<MusicLibraryList>(musicLibList, new PartitionKey(musicLibList.Id));
-            return musicLibList;
+            return await this._container.CreateItemAsync<MusicLibraryList>(musicLibList, new PartitionKey(musicLibList.Id));
+            
         }
 
-        public MusicLibraryList DeleteMusicLibrarySegment(int id)
+        public async Task<ItemResponse<MusicLibraryList>> DeleteMusicLibrarySegment(string id)
         {
-            throw new NotImplementedException();
+            return await this._container.DeleteItemAsync<MusicLibraryList>(id, new PartitionKey(id));
         }
 
         public MusicLibraryList GetMusicLibrary(int id)
@@ -35,9 +35,9 @@ namespace MusicLibrary.API.Repository
             throw new NotImplementedException();
         }
 
-        public MusicLibraryList UpdateMusicLibrary(MusicLibraryList account)
-        {
-            throw new NotImplementedException();
+        public async Task<ItemResponse<MusicLibraryList>> UpdateMusicLibrary(MusicLibraryList musicLibList)
+        {   
+           return await this._container.UpsertItemAsync<MusicLibraryList>(musicLibList, new PartitionKey(musicLibList.Id));
         }
     }
 }
