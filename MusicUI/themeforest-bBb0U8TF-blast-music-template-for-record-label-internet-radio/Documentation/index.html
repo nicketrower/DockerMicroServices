@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>BLAST Documentation</title>
+		<meta name="description" content="Documentation">
+		<meta charset="utf-8">
+		<meta name="author" content="Dmitry Volkov">
+		<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"><![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- Bootstrap core CSS -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+
+		<!-- Custom styles for this template -->
+		<link rel="stylesheet" href="css/main.css">
+	
+	</head>
+	<body data-spy="scroll" data-target=".scroll_bar">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-12 col-sm-3 sidebar">
+					<nav class="scroll_bar">
+						<ul class="nav">
+							<li><a href="#started">Getting Started</a></li>
+							<li><a href="#structure">HTML structure</a></li>
+							<li><a href="#grids">Grids</a></li>
+							<li><a href="#slider">Home slider</a></li>
+							<li><a href="#logo">Logotype</a></li>
+							<li><a href="#player">Audio Player</a></li>
+							<li><a href="#credits">Credits</a></li>
+							<li><a href="#support">Support</a></li>
+						</ul>
+					</nav>
+				</div>
+
+
+				<div class="col-xs-12 col-sm-9 col-sm-offset-3 content">
+					<div class="title">
+						<h1>BLAST Documentation</h1>
+						<p>Hello! Thank you for purchasing!</p>
+						<span>Created: 1/11/2017</span>
+						<span>By: <a href="https://themeforest.net/user/dmitryvolkov">Dmitry Volkov</a></span>
+						<span>Email: <a href="mailto:dmitry.volkov.vetrov@gmail.com">dmitry.volkov.vetrov@gmail.com</a></span>
+					</div>
+
+					<div id="started" class="started">
+						<h2>Getting Started</h2>
+						<p>Unzip the archive and find out the folder www. There are all the template files in this folder. You can open the following files for viewing in browser.</p>
+						<ul>
+							<li><strong>/css</strong> — folder with css files.</li>
+							<li><strong>/fonts</strong> — folder with icon fonts.</li>
+							<li><strong>/icon</strong> — folder with favicons.</li>
+							<li><strong>/img</strong> — folder with image files.</li>
+							<li><strong>/js</strong> — folder with javascript files. <br> <br></li>
+							<li><strong>index.html</strong> — home page.</li>
+							<li><strong>artists.html</strong> — artists page.</li>
+							<li><strong>artist.html</strong> — artist page.</li>
+							<li><strong>news.html, news-masonry.html</strong> — different news pages.</li>
+							<li><strong>article.html</strong> — article page.</li>
+							<li><strong>events.html</strong> — events page.</li>
+							<li><strong>event.html</strong> — event page.</li>
+							<li><strong>releases.html</strong> — releases page.</li>
+							<li><strong>release.html</strong> — release page.</li>
+							<li><strong>store.html</strong> — store page.</li>
+							<li><strong>item.html</strong> — item page.</li>
+							<li><strong>cart.html</strong> — cart page.</li>
+							<li><strong>contacts.html</strong> — contacts page.</li>
+							<li><strong>signin.html</strong> — signin page.</li>
+							<li><strong>signup.html</strong> — signup page.</li>
+							<li><strong>forgot.html</strong> — password recovery page.</li>
+							<li><strong>404.html</strong> — 404 page.</li>
+						</ul>
+						<p>Upload the template files (inside the folder www) to server with the help of one of the FTP-clients.</p>
+					</div>
+
+					<div id="structure">
+						<h2>HTML structure</h2>
+						<p>In my theme I use Bootstrap grid, if you don't know how to use it, <a href="https://getbootstrap.com/docs/3.3/css/#grid">here</a> is a detailed information on its use.</p>
+						<p>The standard section has the following HTML structure:</p>
+<pre>
+&lt;section class="section"&gt;
+  &lt;div class="row row--grid"&gt;
+
+    &lt;div class="col-xs-12"&gt;
+      &lt;div class="section__title clearfix"&gt;
+        &lt;h2&gt;New Releases&lt;/h2&gt;
+        &lt;a class="section__more" href="releases.html"&gt;See All&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="col-xs-6 col-sm-3"&gt;
+      &lt;article class="release-post"&gt;
+        &lt;figure class="release-post__cover"&gt;&lt;a href="release.html"&gt;&lt;img src="img/covers/cover1.jpg" alt="">&lt;/a>&lt;/figure&gt;
+
+        &lt;header class="release-post__header"&gt;
+          &lt;h2 class="release-post__title"&gt;&lt;a href="release.html"&gt;Forbidden Forest&lt;/a&gt;&lt;/h2&gt;
+          &lt;a href="artist.html" class="release-post__autor"&gt;Chris S.&lt;/a&gt;
+        &lt;/header&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;
+</pre>
+					</div>
+
+					<div id="grids" class="grids">
+						<h2>Grids</h2>
+						<p>Default bootstrap grid have next structure:</p>
+<pre>
+&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+	...
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+						<p><br>If you add to "row" modification "row--grid", for example:</p>
+<pre>
+&lt;div class="container"&gt;
+  &lt;div class="row row--grid"&gt;
+	&lt;div class="col-xs-6 col-sm-4"&gt;
+		...
+	&lt;/div&gt;
+	&lt;div class="col-xs-6 col-sm-4"&gt;
+		...
+	&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+						<p>then internal "col" at the resolution: <br>
+ - less than 768px will have a distance of 10px <br>
+ - more than 768px will have a distance of 20px</p>
+						
+						<p><br>If you add to "row" modification "row--grid-big", for example:</p>
+<pre>
+&lt;div class="container"&gt;
+  &lt;div class="row row--grid-big"&gt;
+	&lt;div class="col-xs-12 col-sm-4"&gt;
+		...
+	&lt;/div&gt;
+	&lt;div class="col-xs-12 col-sm-4"&gt;
+		...
+	&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+						<p>then the internal "col" will have a distance of 40px</p>
+					</div>
+
+					<div id="slider" class="slider">
+						<h2>Home slider</h2>
+						<p>To change the slider image, open HTML file and replace the value of data-bg attribute of this construction:</p>
+<pre>
+&lt;div class="item home-carousel__item" data-bg="img/home/slide1.jpg"&gt;
+  &lt;div class="home-carousel__text"&gt;
+	...
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+					</div>
+
+					<div id="logo" class="logo">
+						<h2>Logotype</h2>
+						<p>To change header logotype, find image <strong>img/logo.png</strong> and replace it with your logo.</p>
+						<p>To change footer logotype, find image <strong>img/logo--white.png</strong> and replace it with your logo.</p>
+					</div>
+
+					<div id="player" class="player">
+						<h2>Audio Player</h2>
+						<p>I strongly recommend that you familiarize yourself with the <a href="http://www.jplayer.org/latest/developer-guide/">documentation</a> for jPlayer. There you can find detailed information about how the plugin works.</p>
+					</div>
+
+					<div id="credits" class="credits">
+						<h2>Credits</h2>
+						<ul>
+							<li><a href="http://jquery.com/">jQuery</a></li>
+							<li><a href="http://getbootstrap.com/">Bootstrap</a></li>
+							<li><a href="https://owlcarousel2.github.io/OwlCarousel2/">Owl Carousel</a></li>
+							<li><a href="https://github.com/jquery/jquery-mousewheel">jQuery Mousewheel</a></li>
+							<li><a href="https://github.com/malihu/malihu-custom-scrollbar-plugin">Custom scrollbar plugin</a></li>
+							<li><a href="https://masonry.desandro.com/">Masonry</a></li>
+							<li><a href="https://github.com/jplayer/jPlayer">jPlayer</a></li>
+							<li><a href="https://linearicons.com/free">Linear icons</a></li>
+							<li><a href="http://fontawesome.io/">Font Awesome</a></li>
+						</ul>
+					</div>
+
+					<div id="support" class="support">
+						<h2>Support</h2>
+						<p>If you have any questions, feel free to contact me at <a href="mailto:dmitry.volkov.vetrov@gmail.com">dmitry.volkov.vetrov@gmail.com</a>.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="js/jquery-2.2.4.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/main.js"></script>
+	</body>
+</html>
